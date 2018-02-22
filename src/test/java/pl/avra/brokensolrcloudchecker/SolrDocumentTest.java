@@ -18,7 +18,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 public class SolrDocumentTest {
 
-    private static final int ALL_DOCUMENTS = 10000;
+    private static final int ALL_DOCUMENTS = 5000;
 
     @Autowired
     private SolrTemplate solrTemplate;
