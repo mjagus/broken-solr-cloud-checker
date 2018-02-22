@@ -31,6 +31,10 @@ public final class SolrDocument implements Serializable, Cloneable {
     @Indexed
     private SolrDocumentType type;
 
+    @Field(SolrFields.USER_LOGIN)
+    @Indexed
+    private String userLogin;
+
     /**
      * Znacznik czasowy. Moment utworzenia encji powiązanej z tym dokumentem.
      */
@@ -38,10 +42,11 @@ public final class SolrDocument implements Serializable, Cloneable {
     @Indexed
     private long timestamp;
 
-    public SolrDocument(String id, boolean deleted, SolrDocumentType type, long timestamp) {
+    public SolrDocument(String id, boolean deleted, SolrDocumentType type, String userLogin, long timestamp) {
         this.id = id;
         this.deleted = deleted;
         this.type = type;
+        this.userLogin = userLogin;
         this.timestamp = timestamp;
     }
 
