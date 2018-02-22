@@ -44,7 +44,7 @@ public class SolrDocumentTest {
 
             String id = String.valueOf(timestamp + i);
             Query query = new SimpleQuery("id:" + id);
-            assertThat(solrTemplate.queryForObject(defaultCollection, query, SolrDocument.class)).as("query(%s)", id).isNotNull();
+            assertThat(solrTemplate.queryForObject(defaultCollection, query, SolrDocument.class)).as("query(%s)", id).isPresent();
         }
     }
 
