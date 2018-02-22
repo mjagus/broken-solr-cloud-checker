@@ -10,18 +10,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.solr.core.SolrTemplate;
+import org.springframework.data.solr.core.query.Query;
+import org.springframework.data.solr.core.query.SimpleQuery;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
-public class SolrDocumentRepositoryTest {
+public class SolrDocumentTest {
 
     private static final int ALL_DOCUMENTS = 10000;
 
     @Autowired
     private SolrTemplate solrTemplate;
-    @Autowired
-    private SolrDocumentRepository repository;
 
     @Value("${solr.default-collection}")
     private String defaultCollection;
@@ -31,6 +31,8 @@ public class SolrDocumentRepositoryTest {
         long timestamp = System.currentTimeMillis();
 
         for(int i = 0; i < ALL_DOCUMENTS; i++) {
+            System.out.println("Progress: " + (i + 1) + "/" + ALL_DOCUMENTS);
+
             SolrDocument document = givenDocument(timestamp + i);
 
             solrTemplate.saveBean(defaultCollection, document, Duration.ofMinutes(5));
@@ -38,8 +40,11 @@ public class SolrDocumentRepositoryTest {
         }
 
         for(int i = 0; i < ALL_DOCUMENTS; i++) {
+            System.out.println("Verification: " + (i + 1) + "/" + ALL_DOCUMENTS);
+
             String id = String.valueOf(timestamp + i);
-            assertThat(repository.findById(id)).as("repository.findById(%s)", id).isPresent();
+            Query query = new SimpleQuery("id:" + id);
+            assertThat(solrTemplate.queryForObject(defaultCollection, query, SolrDocument.class)).as("query(%s)", id).isNotNull();
         }
     }
 
