@@ -2,8 +2,6 @@ package pl.avra.brokensolrcloudchecker;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.time.Duration;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +33,7 @@ public class SolrDocumentTest {
 
             SolrDocument document = givenDocument(timestamp + i);
 
-            solrTemplate.saveBean(defaultCollection, document, Duration.ofMinutes(5));
+            solrTemplate.saveBean(defaultCollection, document);
             solrTemplate.softCommit(defaultCollection);
         }
 
