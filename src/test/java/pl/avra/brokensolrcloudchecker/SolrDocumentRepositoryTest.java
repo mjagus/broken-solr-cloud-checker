@@ -44,7 +44,7 @@ public class SolrDocumentRepositoryTest {
     }
 
     private SolrDocument givenDocument(long timestamp) {
-        return new SolrDocument(String.valueOf(timestamp), false, SolrDocumentType.USER, "user" + timestamp, timestamp);
+        return new SolrDocument(String.valueOf(timestamp), false, SolrDocumentType.USER, "userId" + timestamp, "userLogin" + timestamp, timestamp);
     }
 
 }
